@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <h1>Welcome to my demo project</h1>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="#name">Home</a></li>
+          <li><a href="#message">About</a></li>
+          <li><a href="#number">Contact</a></li>
+        </ul>
+      </nav>
+    </header>
+    <main>
+      <section id="about">
+        <h2>About Me</h2>
+        <p>
+          Hi, I am Nehal. I am a web developer. I love to code and create new
+          things. I am a quick learner and always ready to learn new things.
+        </p>
+        <span
+          style="
+            display: inline-block;
+            width: 300px;
+            height: 300px;
+            overflow: hidden;
+          "
+        >
+          <img
+            src="image.jpg"
+            alt="Nehal"
+            style="width: 100%; height: 100%; object-fit: cover"
+          />
+        </span>
+      </section>
+      <section id="fvrt_movies">
+        <h2>Some of My Favourite Movies</h2>
+        <ul>
+          <li>Escape Room</li>
+          <li>Lights Out</li>
+          <li>Annabelle</li>
+        </ul>
+        <div>
+          <div id="escape-room">
+            <h3>Escape Room Trailer</h3>
+          </div>
+          <iframe
+            width="560"
+            height="315"
+            src="https://www.youtube.com/embed/6dSKUoV0SNI"
+            title="YouTube video player"
+            frameborder="0"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </section>
+      <section id="dig_lib">
+        <h2>My Digital Library</h2>
+        <div class="audio-player">
+          <h3>Audio Playlist</h3>
+          <div>
+            <h3>Cheap Thrills</h3>
+            <audio controls>
+              <source src="song2.mp3" type="audio/mpeg" />
+            </audio>
+          </div>
+          <div>
+            <h3>Dreamers</h3>
+            <audio controls>
+              <source
+                src="https://westsidemusicblog.net/wp-content/uploads/2022/11/Jungkook-Dreamers-.mp3"
+                type="audio/mpeg"
+              />
+            </audio>
+          </div>
+        </div>
+      </section>
+      <section id="contact">
+        <h2>Say Something About Me!</h2>
+        <form id="contact-form">
+          <label for="name">Name:</label>
+          <input type="text" id="name" name="name" required /><br />
+          <label for="email">Email:</label>
+          <input type="email" id="email" name="email" required /><br />
+          <label for="number">Number:</label>
+          <input type="number" id="number" name="number" required /><br />
+          <label for="message">Message:</label>
+          <textarea id="message" name="message" required></textarea>
+          <button type="submit">Submit</button>
+        </form>
+      </section>
+    </main>
+    <footer>
+      <p>&copy; Copyright 2020 Nehal</p>
+    </footer>
+  </body>
+</html>
