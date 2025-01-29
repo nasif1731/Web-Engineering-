@@ -55,13 +55,13 @@ function renderTasks() {
     const completeBtn = document.createElement('button');
     completeBtn.className = 'complete-btn';
     completeBtn.innerHTML = task.completed 
-      ? '<img src="images/undo.png" alt="Undo">' 
-      : '<img src="images/check.png" alt="Complete">';
+      ? '<img src="resources/undo.png" alt="Undo">' 
+      : '<img src="resources/check.png" alt="Complete">';
     completeBtn.onclick = () => toggleComplete(task.id);
 
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'delete-btn';
-    deleteBtn.innerHTML = '<img src="images/trash.png" alt="Delete">';
+    deleteBtn.innerHTML = '<img src="resources/trash.png" alt="Delete">';
     deleteBtn.onclick = () => deleteTask(task.id);
 
     li.appendChild(span);
