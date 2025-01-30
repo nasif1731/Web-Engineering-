@@ -4,7 +4,7 @@ renderTasks();
 function addTask() {
   const input = document.getElementById('taskInput');
   const task = input.value.trim();
-  
+
   if (task) {
     tasks.push({
       id: Date.now(),
@@ -54,8 +54,8 @@ function renderTasks() {
 
     const completeBtn = document.createElement('button');
     completeBtn.className = 'complete-btn';
-    completeBtn.innerHTML = task.completed 
-      ? '<img src="resources/undo.png" alt="Undo">' 
+    completeBtn.innerHTML = task.completed
+      ? '<img src="resources/undo.png" alt="Undo">'
       : '<img src="resources/check.png" alt="Complete">';
     completeBtn.onclick = () => toggleComplete(task.id);
 
@@ -71,7 +71,7 @@ function renderTasks() {
   });
 }
 
-document.getElementById('taskInput').addEventListener('keypress', function(event) {
+document.getElementById('taskInput').addEventListener('keypress', function (event) {
   if (event.key === 'Enter') {
     addTask();
   }
