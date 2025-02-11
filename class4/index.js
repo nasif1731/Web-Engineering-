@@ -4,17 +4,17 @@
 
 
 // }
-// // Creating an array using the 'new Array' constructor
-// let fruits = new Array("Mango", "Apple", "Banana");
-// // Alternative way to create an array: let fruits = ["Mango", "Apple", "Banana"];
+// Creating an array using the 'new Array' constructor
+let fruits = new Array("Mango", "Apple", "Banana");
+// Alternative way to create an array: let fruits = ["Mango", "Apple", "Banana"];
 
-// // Accessing array elements using index
-// console.log(fruits[0]); // Output: Mango
+// Accessing array elements using index
+console.log(fruits[0]); // Output: Mango
 
-// // Using splice() to modify an array by removing and adding elements
-// // Syntax: array.splice(startIndex, deleteCount, item1, item2, ...)
-// fruits.splice(2, 5, "Apple", "Guava", "Raspberry", "Peach", "Grapes");
-// console.log(fruits); // Output: ["Mango", "Apple", "Apple", "Guava", "Raspberry", "Peach", "Grapes"]
+// Using splice() to modify an array by removing and adding elements
+// Syntax: array.splice(startIndex, deleteCount, item1, item2, ...)
+fruits.splice(2, 5, "Apple", "Guava", "Raspberry", "Peach", "Grapes");
+console.log(fruits); // Output: ["Mango", "Apple", "Apple", "Guava", "Raspberry", "Peach", "Grapes"]
 
 // // Using slice() to extract a portion of an array without modifying the original array
 // // Syntax: array.slice(startIndex, endIndex)
@@ -153,9 +153,9 @@ let person = {
 // console.log(Object.keys(person));
 // console.log(Object.entries(person)); //Object.entries(person);
 
-let {name,isStudent}=person;
-let currentStudent={...person};
- console.log(currentStudent);
+// let {name,isStudent}=person;
+// let currentStudent={...person};
+//  console.log(currentStudent);
 
  function add(...values){
     //return values.reduce((sum, value) => sum + value, 0);
@@ -172,10 +172,10 @@ function createStudent(name,isStudent)
     this.isStudent=isStudent;
 } //if we will work in ejs then we will export the factory function createStudent
 let person3=new createStudent("name",true);
-person.prototype.semesterStarts=true;
-person.prototype.greet=function(){
-    return `Hello ${this.name}!`;
-}
+// person.prototype.semesterStarts=true;
+// person.prototype.greet=function(){
+//     return `Hello ${this.name}!`;
+// }
 // // Accessing object properties using dot notation   
 // console.log(person.name); // Output: "John Doe"
 

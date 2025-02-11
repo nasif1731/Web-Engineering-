@@ -38,6 +38,12 @@ let calculator = (a, b, operation) => operation(a, b);
 console.log(calculator(2, 3, multiply)); //if we are passing function in function than it can be a callback function
 console.log(calculator(2, 3, add));
 
+let calculator1 = (a, b, operation) => operation(a, b), 
+    multiply1 = (a, b) => a * b, 
+    add1 = (a, b) => a + b;
+    console.log(calculator1(2, 3, multiply)); //if we are passing function in function than it can be a callback function
+    console.log(calculator1(2, 3, add));
+
 function counter() {
     let count = 0;
     return function () {
@@ -71,11 +77,11 @@ function findDuplicatesByClosure(arr) {
 let findDuplicatesByClosureFunc = findDuplicatesByClosure([1, 5, 3, 4, 5, 2, 5, 3, 4, 5]);
 console.log(findDuplicatesByClosureFunc());
 let values1=[1,2,3,4,5];
-function multiply1(...values){ //rest operator ... for single values and Spread ... for array values
-    return values.reduce((result, value) => result * value, 1);
-}
-console.log(multiply1(1, 2, 3, 4, 5));
-console.log(multiply1(values1));
+// function multiply1(...values){ //rest operator ... for single values and Spread ... for array values
+//     return values.reduce((result, value) => result * value, 1);
+// }
+// console.log(multiply1(1, 2, 3, 4, 5));
+// console.log(multiply1(values1));
 
 // Promises: A Promise is a JavaScript object that represents an operation that hasn't completed yet, but is expected to complete at some point.
 //synchronous function 
