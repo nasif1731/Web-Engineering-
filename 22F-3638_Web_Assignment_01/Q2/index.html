@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title> Task Manager</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-header">
+      <h1>ToDo List <span class="task-count"></span></h1>
+      <input type="text" id="search" placeholder="Search tasks..." />
+    </div>
+
+    <form class="task-form" id="taskForm">
+      <input type="text" id="taskInput" placeholder="New task..." />
+      <select id="prioritySelect">
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+      <button type="submit">+ Add</button>
+    </form>
+
+    <div class="priority-columns" id="priorityColumns"></div>
+
+    <div class="completed-section">
+      <h2>Completed Tasks</h2>
+      <ul class="task-list" id="completedTasks"></ul>
+    </div>
+
+    <button class="theme-toggle" onclick="toggleTheme()">🌓</button>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>NeonTech Discount System</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h1 class="glow">DISCOUNT SYSTEM</h1>
+
+      <div class="input-group">
+        <input
+          type="text"
+          id="rollNumber"
+          placeholder="Enter Roll Number (e.g., 21F-9445)"
+        />
+      </div>
+
+      <div class="products-grid" id="products"></div>
+
+      <div class="price-summary hidden" id="priceSummary">
+        <div class="summary-item">
+          <span>Original Total:</span>
+          <span id="originalTotal">0 PKR</span>
+        </div>
+        <div class="summary-item">
+          <span>Discount:</span>
+          <span class="discount-percent" id="discountPercent">0%</span>
+        </div>
+        <div class="total-price" id="discountedTotal">0 PKR</div>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>

@@ -4,17 +4,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
     if (localStorage.getItem("dark-mode") === "enabled") {
         body.classList.add("dark-mode");
-        toggleButton.textContent = "☀";
+        toggleButton.textContent = "☀️";
     }
 
     toggleButton.addEventListener("click", () => {
         if (body.classList.contains("dark-mode")) {
             body.classList.remove("dark-mode");
-            toggleButton.textContent = "🌙"; 
+            toggleButton.textContent = "🌙";
             localStorage.setItem("dark-mode", "disabled");
         } else {
             body.classList.add("dark-mode");
-            toggleButton.textContent = "☀"; 
+            toggleButton.textContent = "☀️"; 
             localStorage.setItem("dark-mode", "enabled");
         }
     });

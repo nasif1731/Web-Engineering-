@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Account Bank System</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="card">
+      <h1>Account Bank System</h1>
+      <div id="accountSetup">
+        <div class="form-group">
+          <input type="text" id="studentId" placeholder="Enter Roll Number" />
+          <button class="primary-btn" onclick="initializeAccount()">
+            Create Account
+          </button>
+        </div>
+      </div>
+
+      <div id="bankInterface" class="hidden">
+        <button class="toggle-btn" onclick="toggleAccountCreation()">
+          ＋ Create New Account
+        </button>
+
+        <div class="form-group">
+          <select
+            id="accountSelector"
+            class="account-selector"
+            onchange="switchAccount(this.value)"
+          >
+          </select>
+        </div>
+
+        <div class="form-group">
+          <p>Account Number: <strong id="acctNumber"></strong></p>
+          <p class="balance">Balance: <span id="currentBalance">0</span> PKR</p>
+        </div>
+
+        <div class="form-group">
+          <input type="number" id="txnAmount" placeholder="Enter amount" />
+          <button class="primary-btn" onclick="handleDeposit()">Deposit</button>
+          <button class="primary-btn" onclick="handleWithdrawal()">
+            Withdraw
+          </button>
+        </div>
+
+        <h3>Transaction History</h3>
+        <ul class="transaction-list" id="txnHistory"></ul>
+        <button class="primary-btn" onclick="saveTransactions()">
+          Download History
+        </button>
+      </div>
+    </div>
+
+    <script src="./script.js"></script>
+  </body>
+</html>
