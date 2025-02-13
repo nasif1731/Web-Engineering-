@@ -1,32 +1,114 @@
 
 const products = [
-    { name: "Laptop", price: 100000 },
-    { name: "Smartphone", price: 50000 },
-    { name: "Headphones", price: 8000 },
-    { name: "Smartwatch", price: 20000 },
-    { name: "Gaming Console", price: 70000 },
+    { name: "Mobile", price: 24999 },
+    { name: "Laptop", price: 129999 },
+    { name: "Tablet", price: 8999 },
+    { name: "Camera", price: 44999 },
   ];
 
-  function calculateDiscount(rollNumber) {
+  let purchaseCount = 0;
+  const validPromoCodes = new Set(["NEHAL60", "FASTNU"]);
+  let currentDiscount = 0;
+
+  const extractMiddleDigits = (rollNumber) => {
     const digits = rollNumber.replace(/\D/g, "");
     if (digits.length < 4) return 0;
+    const midStart = Math.floor((digits.length - 2) / 2);
+    return parseInt(digits.substr(midStart, 2), 10) || 0;
+  };
 
-    const midStart = Math.floor(digits.length / 2) - 1;
-    const discount = parseInt(digits.substr(midStart, 2)) || 0;
-    return Math.min(discount, 95);
-  }
+  const calculateDiscount = (rollNumber) => {
+    let discount = extractMiddleDigits(rollNumber);
+    const maxDiscount = purchaseCount >= 2 ? 60 : 50;
+    return Math.min(discount, maxDiscount);
+  };
+
+  const applyPromoBonus = (discount) => {
+    const promoCode = document.getElementById("promoCode").value.trim();
+    return validPromoCodes.has(promoCode)
+      ? Math.min(discount + 10, 60)
+      : discount;
+  };
+
+  const updateUI = () => {
+    const selectedProducts = document.querySelectorAll(
+      "#products input:checked"
+    );
+    document.getElementById("confirmBtn").disabled =
+      selectedProducts.length === 0;
+  };
+
+  const updatePrices = () => {
+    const rollNumber = document.getElementById("rollNumber").value;
+    let discount = calculateDiscount(rollNumber);
+    discount = applyPromoBonus(discount);
+    currentDiscount = discount;
+
+    const selectedProducts = [
+      ...document.querySelectorAll("#products input:checked"),
+    ];
+    const totals = selectedProducts.reduce(
+      (acc, product) => {
+        acc.original += +product.value;
+        acc.discounted += +product.value * (1 - discount / 100);
+        return acc;
+      },
+      { original: 0, discounted: 0 }
+    );
+
+    document.getElementById(
+      "originalTotal"
+    ).textContent = `${totals.original.toLocaleString()} PKR`;
+    document.getElementById("discountPercent").textContent = `${discount}%`;
+    document.getElementById(
+      "discountedTotal"
+    ).textContent = `${totals.discounted.toLocaleString()} PKR`;
+
+    document.querySelectorAll(".product-card").forEach((card, index) => {
+      document.getElementById(
+        `badge-${index}`
+      ).textContent = `-${discount}%`;
+    });
+
+    updateUI();
+
+    document.getElementById("priceSummary").style.display =
+      selectedProducts.length > 0 ? "block" : "none";
+  };
+
+  const handleConfirmPurchase = () => {
+    const selectedProducts = [
+      ...document.querySelectorAll("#products input:checked"),
+    ];
+    if (selectedProducts.length === 0) {
+      alert("No items selected!");
+      return;
+    }
+
+    purchaseCount += selectedProducts.length;
+
+    alert(`Purchase confirmed! Total items: ${selectedProducts.length}`);
+
+    document.querySelectorAll("#products input").forEach((checkbox) => {
+      checkbox.checked = false;
+      checkbox.parentElement.parentElement.classList.remove("selected");
+    });
+
+    updatePrices();
+
+    document.getElementById("priceSummary").style.display = "block";
+  };
 
   document.addEventListener("DOMContentLoaded", () => {
-    const container = document.getElementById("products");
-    container.innerHTML = products
+    document.getElementById("products").innerHTML = products
       .map(
-        (product, index) => `
+        (product, i) => `
             <div class="product-card">
-                <div class="discount-badge" id="badge-${index}">-0%</div>
+                <div class="discount-badge" id="badge-${i}">-0%</div>
                 <label>
                     <input type="checkbox" value="${
                       product.price
-                    }" data-index="${index}">
+                    }" data-index="${i}">
                     <span class="product-name">${product.name}</span>
                     <span class="product-price">${product.price.toLocaleString()} PKR</span>
                 </label>
@@ -35,48 +117,28 @@ const products = [
       )
       .join("");
 
+   
+    const debouncedUpdate = () => {
+      clearTimeout(this.timeout);
+      this.timeout = setTimeout(updatePrices, 300);
+    };
+
     document
       .getElementById("rollNumber")
-      .addEventListener("input", updateSystem);
-    document.addEventListener("change", updateSystem);
-  });
-
-  function updateSystem() {
-    const rollNumber = document.getElementById("rollNumber").value;
-    const discount = calculateDiscount(rollNumber);
-    const selectedProducts = Array.from(
-      document.querySelectorAll("#products input:checked")
-    );
-
-    updatePrices(selectedProducts, discount);
-  }
-
-  function updatePrices(selectedProducts, discount) {
-    const priceSummary = document.getElementById("priceSummary");
-    const originalTotal = selectedProducts.reduce(
-      (sum, product) => sum + parseInt(product.value),
-      0
-    );
-    const discountedTotal = selectedProducts.reduce(
-      (sum, product) => sum + product.value * (1 - discount / 100),
-      0
-    );
-
-    document.getElementById(
-      "originalTotal"
-    ).textContent = `${originalTotal.toLocaleString()} PKR`;
-    document.getElementById("discountPercent").textContent = `${discount}%`;
-    document.getElementById(
-      "discountedTotal"
-    ).textContent = `${discountedTotal.toLocaleString()} PKR`;
-
-    priceSummary.classList.toggle("hidden", selectedProducts.length === 0);
-
-    document.querySelectorAll(".product-card").forEach((card, index) => {
-      const checkbox = card.querySelector("input");
-      card.classList.toggle("selected", checkbox.checked);
-      document.getElementById(
-        `badge-${index}`
-      ).textContent = `-${discount}%`;
+      .addEventListener("input", debouncedUpdate);
+    document
+      .getElementById("promoCode")
+      .addEventListener("input", debouncedUpdate);
+    document.getElementById("products").addEventListener("change", (e) => {
+      if (e.target.matches('input[type="checkbox"]')) {
+        e.target.parentElement.parentElement.classList.toggle(
+          "selected",
+          e.target.checked
+        );
+        debouncedUpdate();
+      }
     });
-  }
+    document
+      .getElementById("confirmBtn")
+      .addEventListener("click", handleConfirmPurchase);
+  });

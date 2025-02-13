@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>NeonTech Discount System</title>
+    <title>Discount System</title>
     <link
       href="https://fonts.googleapis.com/css2?family=Inter:wght@300;500;700&display=swap"
       rel="stylesheet"
@@ -12,29 +12,39 @@
   </head>
   <body>
     <div class="container">
-      <h1 class="glow">DISCOUNT SYSTEM</h1>
+      <h1>DISCOUNT SYSTEM</h1>
 
       <div class="input-group">
         <input
           type="text"
           id="rollNumber"
-          placeholder="Enter Roll Number (e.g., 21F-9445)"
+          placeholder="Enter Roll Number "
+        />
+      </div>
+      <div class="input-group">
+        <input
+          type="text"
+          id="promoCode"
+          placeholder="Enter Promo Code"
         />
       </div>
 
       <div class="products-grid" id="products"></div>
 
-      <div class="price-summary hidden" id="priceSummary">
+      <div class="price-summary" id="priceSummary">
         <div class="summary-item">
-          <span>Original Total:</span>
-          <span id="originalTotal">0 PKR</span>
+          <span>Original Total:</span><span id="originalTotal">0 PKR</span>
         </div>
         <div class="summary-item">
-          <span>Discount:</span>
-          <span class="discount-percent" id="discountPercent">0%</span>
+          <span>Discount:</span
+          ><span class="discount-percent" id="discountPercent">0%</span>
         </div>
         <div class="total-price" id="discountedTotal">0 PKR</div>
       </div>
+
+      <button class="confirm-btn" id="confirmBtn" disabled>
+        Confirm Purchase
+      </button>
     </div>
 
     <script src="./script.js"></script>
