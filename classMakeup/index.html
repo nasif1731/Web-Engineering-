@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>GitHub User Lookup</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+        }
+        
+        #container {
+            display: flex;
+            flex-direction: column;
+            max-width: 90%;
+            margin: 20px auto;
+            gap: 20px;
+        }
+        
+        
+        #gitForm {
+            display: flex;
+            justify-content: flex-start;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        input[type="text"] {
+            padding: 10px;
+            width: 250px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+        
+        button {
+            background: #007bff;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        
+        button img {
+            width: 20px;
+            height: 20px;
+        }
+        
+        
+        #main-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+        }
+        
+        
+        #user_profile {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        #user_profile img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+        
+        
+        #repositories {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+            overflow-y: auto;
+            max-height: 500px;
+        }
+        
+        
+        #followers {
+            background: white;
+            padding: 15px;
+            border-radius: 10px;
+            box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        
+        .follower-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            width: 120px;
+        }
+        
+        .follower-item img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid #007bff;
+            transition: transform 0.3s ease;
+        }
+        
+        .follower-item img:hover {
+            transform: scale(1.1);
+        }
+        
+        .follower-item a {
+            text-decoration: none;
+            color: #007bff;
+            font-weight: bold;
+            margin-top: 5px;
+        }
+        
+        
+        #followers {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: flex-start;
+            padding: 15px;
+        }
+        
+    </style>
+</head>
+<body>
+    <section>
+        <div id="container">
+            <form id="gitForm">
+                <label for="name">GitHub ID:</label>
+                <input type="text" id="name" name="name" required>
+                <button type="submit" class="btn">
+                    <img class="sub_img" src="https://img.icons8.com/?size=100&id=12773&format=png&color=000000" alt="Submit">
+                </button>
+            </form>
+            <div id="user_profile"></div>
+            <div id="repositories"></div>
+            <div id="followers"></div>
+        </div>
+    </section>
+
+    <script>
+        document.getElementById('gitForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const username = document.getElementById('name').value.trim();
+            if (!username) {
+                alert("Please enter a GitHub ID");
+                return;
+            }
+
+            document.getElementById('user_profile').innerHTML = "";
+            document.getElementById('repositories').innerHTML = "";
+            document.getElementById('followers').innerHTML = "";
+
+            try {
+                const user = await fetchUserProfile(username);
+                displayUserProfile(user);
+
+                const repos = await fetchAllRepositories(username);
+                displayRepositories(repos);
+
+                const followers = await fetchAllFollowers(username);
+                displayFollowers(followers);
+            } catch (error) {
+                document.getElementById('user_profile').innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        });
+
+        async function fetchUserProfile(username) {
+            const clientID = 'Ov23liD3KzyrDqrLqD1r';
+            const clientSecret = '9a2a9fce69a6b01da06fe69bb54e2da204f0a96a';
+
+            const userUrl = `https://api.github.com/users/${username}?client_id=${clientID}&client_secret=${clientSecret}`;
+            const response = await fetch(userUrl);
+            if (!response.ok) throw new Error("User not found");
+            return await response.json();
+        }
+
+        function displayUserProfile(user) {
+            document.getElementById('user_profile').innerHTML = `
+                <h3>${user.name || "No name provided"}</h3>
+                <img src="${user.avatar_url}" alt="Avatar">
+                <p><strong>Username:</strong> ${user.login}</p>
+                <p><strong>Public Repos:</strong> ${user.public_repos}</p>
+                <p><strong>Followers:</strong> ${user.followers}</p>
+                <p><strong>Following:</strong> ${user.following}</p>
+                <p><a href="${user.html_url}" target="_blank">View Profile</a></p>
+                <h3>Repositories:</h3>
+            `;
+        }
+
+        async function fetchAllRepositories(username) {
+            const clientID = 'Ov23liD3KzyrDqrLqD1r';
+            const clientSecret = '9a2a9fce69a6b01da06fe69bb54e2da204f0a96a';
+
+            let page = 1;
+            let allRepos = [];
+            let fetchMore = true;
+
+            while (fetchMore) {
+                const reposUrl = `https://api.github.com/users/${username}/repos?per_page=100&page=${page}&client_id=${clientID}&client_secret=${clientSecret}`;
+                const response = await fetch(reposUrl);
+                if (!response.ok) throw new Error("Failed to fetch repositories");
+                const repos = await response.json();
+
+                allRepos = allRepos.concat(repos);
+                page++;
+                if (repos.length < 100) fetchMore = false;
+            }
+
+            return allRepos;
+        }
+
+        function displayRepositories(repos) {
+            const reposContainer = document.getElementById('repositories');
+
+            if (repos.length === 0) {
+                reposContainer.innerHTML = `<p>No repositories found.</p>`;
+                return;
+            }
+
+            repos.forEach(repo => {
+                const repoEl = document.createElement('div');
+                repoEl.className = 'repo-item';
+                repoEl.innerHTML = `
+                    <a href="${repo.html_url}" target="_blank">${repo.name}</a>
+                    <p>${repo.description || "No description provided"}</p>
+                `;
+                reposContainer.appendChild(repoEl);
+            });
+        }
+
+        async function fetchAllFollowers(username) {
+            const clientID = 'Ov23liD3KzyrDqrLqD1r';
+            const clientSecret = '9a2a9fce69a6b01da06fe69bb54e2da204f0a96a';
+
+            let page = 1;
+            let allFollowers = [];
+            let fetchMore = true;
+
+            while (fetchMore) {
+                const followersUrl = `https://api.github.com/users/${username}/followers?per_page=100&page=${page}&client_id=${clientID}&client_secret=${clientSecret}`;
+                const response = await fetch(followersUrl);
+                if (!response.ok) throw new Error("Failed to fetch followers");
+                const followers = await response.json();
+
+                allFollowers = allFollowers.concat(followers);
+                page++;
+                if (followers.length < 100) fetchMore = false;
+            }
+
+            return allFollowers;
+        }
+
+        function displayFollowers(followers) {
+            const followersContainer = document.getElementById('followers');
+            followersContainer.innerHTML = "<h3>Followers:</h3>";
+        
+            if (followers.length === 0) {
+                followersContainer.innerHTML += `<p>No followers found.</p>`;
+                return;
+            }
+        
+            
+            const followersList = document.createElement('div');
+            followersList.style.display = 'flex';
+            followersList.style.flexWrap = 'wrap';
+            followersList.style.justifyContent = 'center';
+            followersList.style.gap = '15px';
+            followersList.style.padding = '10px';
+        
+            followers.forEach(follower => {
+                const followerEl = document.createElement('div');
+                followerEl.className = 'follower-item';
+                followerEl.style.display = 'flex';
+                followerEl.style.flexDirection = 'column';
+                followerEl.style.alignItems = 'center';
+                followerEl.style.textAlign = 'center';
+                followerEl.style.cursor = 'pointer';
+        
+                followerEl.innerHTML = `
+                    <img src="${follower.avatar_url}" alt="${follower.login}" style="width: 60px; height: 60px; border-radius: 50%; border: 2px solid #007bff; transition: transform 0.3s;">
+                    <span style="color: #007bff; font-weight: bold; margin-top: 5px;">${follower.login}</span>
+                `;
+        
+                
+                followerEl.querySelector('img').addEventListener('mouseover', function () {
+                    this.style.transform = 'scale(1.1)';
+                });
+        
+                followerEl.querySelector('img').addEventListener('mouseout', function () {
+                    this.style.transform = 'scale(1)';
+                });
+
+                followerEl.addEventListener('click', function () {
+                    document.getElementById('name').value = follower.login;
+                    document.getElementById('gitForm').dispatchEvent(new Event('submit'));
+                });
+        
+                followersList.appendChild(followerEl);
+            });
+        
+            followersContainer.appendChild(followersList);
+        }
+        
+    </script>
+</body>
+</html>
