@@ -1,0 +1,42 @@
+[
+    {
+        "name":"Nehal",
+        "salary": 2000000
+    },
+    {
+        "name":"Ibrahim",
+        "salary": 2500000
+    },
+    {
+        "name":"Ali",
+        "salary": 3000000
+    },
+    {
+        "name":"Zainab",
+        "salary": 2800000
+    },
+    {
+        "name":"Sara",
+        "salary": 2200000
+    },
+    {
+        "name":"John",
+        "salary": 2700000
+    },
+    {
+        "name":"Emaan",
+        "salary": 2300000
+    },
+    {
+        "name":"Ayesha",
+        "salary": 2400000
+    },
+    {
+        "name":"Sana",
+        "salary": 2600000
+    },
+    {
+        "name":"Kashif",
+        "salary": 2900000
+    }
+]

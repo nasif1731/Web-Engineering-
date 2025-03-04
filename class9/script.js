@@ -137,27 +137,27 @@
 //     console.log(error);
 // });
 
-// async function getgitData() {
-//     const gitAPI=await fetch('https://api.github.com/users/nasif1731');
-//     const profile=await gitAPI.json();
-//     console.log(profile);     
+async function getgitData() {
+    const gitAPI=await fetch('https://api.github.com/users/nasif1731');
+    const profile=await gitAPI.json();
+    console.log(profile);     
    
-// }
-// getgitData();
+}
+getgitData();
 
 // localStorage.setItem('github','https://api.github.com/users/nasif1731');
 // const prof=localStorage.getItem('github');
 // console.log(prof);
 
-const users=[
-    {id:1,name:'Nehal',age:22},
-    {id:2,name:'Ali',age:25},
-    {id:3,name:'Zainab',age:23}
-]
-console.log(JSON.stringify(users));
-console.log(users);
+// const users=[
+//     {id:1,name:'Nehal',age:22},
+//     {id:2,name:'Ali',age:25},
+//     {id:3,name:'Zainab',age:23}
+// ]
+// console.log(JSON.stringify(users));
+// console.log(users);
 
-const json=JSON.stringify(users);
-localStorage.setItem('users',json);
-const users1=localStorage.getItem('users');
-console.log(JSON.parse(users1));
+// const json=JSON.stringify(users);
+// localStorage.setItem('users',json);
+// const users1=localStorage.getItem('users');
+// console.log(JSON.parse(users1));
