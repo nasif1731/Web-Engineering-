@@ -14,9 +14,9 @@ const app = express();
 app.use(express.json());
 
 const myFriends = [
-    { id: uuidv4(), name: 'John Doe', email: 'john@example.com', contact: '1234-5678901' },
-    { id: uuidv4(), name: 'Jane Doe', email: 'jane@example.com', contact: '2345-6789012' },
-    { id: uuidv4(), name: 'Bob Doe', email: 'bob@example.com', contact: '3456-7890123' }
+    { id: 1, name: 'John Doe', email: 'john@example.com', contact: '1234-5678901' },
+    { id: 2, name: 'Jane Doe', email: 'jane@example.com', contact: '2345-6789012' },
+    { id: 3, name: 'Bob Doe', email: 'bob@example.com', contact: '3456-7890123' }
 ];
 
 // Get all friends
@@ -52,6 +52,68 @@ app.post('/friends', (req, res) => {
 
     myFriends.push(newFriend);
     return res.status(201).json(newFriend);
+});
+
+app.patch('/friends/:id', async(req, res) => {
+    const  id = parseInt(req.params.id);
+    //schema validation
+    const { error, value } = schema.validate(req.body);
+    if (error) {
+        return res.status(400).json({ "errormessage": error.details[0].message });
+    }
+    const friendIndex = await myFriends.findIndex(friend => friend.id === id);
+
+    if (friendIndex === -1) {
+        return res.status(404).json({ error: "Friend not found" });
+    }
+    let friend ={...myFriends[friendIndex],...req.body};
+        myFriends[friendIndex]=friend;
+    // myFriends[friendIndex]
+    //  .name = req.body.name;
+    //  myFriends[friendIndex]
+    //  .email = req.body.email;
+    //  myFriends[friendIndex]
+    //  .contact = req.body.contact;
+     return res.send("updated");
+
+});
+//by put
+app.put('/friends/:id', async(req, res) => {
+    const  id = parseInt(req.params.id);
+    //schema validation
+    const { error, value } = schema.validate(req.body);
+    if (error) {
+        return res.status(400).json({ "errormessage": error.details[0].message });
+    }
+    const friendIndex =await myFriends.findIndex(friend => friend.id === id);
+    if (friendIndex === -1) {
+        return res.status(404).json({ error: "Friend not found" });
+    }
+    myFriends[friendIndex] = {...req.body};
+    return res.send("updated");
+    
+
+});
+//delete friend
+
+app.delete('/friends/:id', async(req, res) => {
+    const  id = parseInt(req.params.id);
+    const friendIndex = await myFriends.findIndex(friend => friend.id === id);
+    if (friendIndex === -1) {
+        return res.status(404).json({ error: "Friend not found" });
+    }
+    myFriends.splice(friendIndex, 1);
+    return res.send(" Record deleted");
+});
+app.delete('/friends/', async(req, res) => {
+    
+    myFriends.splice(0);
+    return res.send(" Records deleted");
+});
+//delete all
+app.delete('/friends', async(req, res) => {
+    myFriends.length=0;
+    return res.send("All records deleted");
 });
 
 // Root route
