@@ -74,11 +74,65 @@ async function updateFriendName() {
     }
 }
 
+async function updateMultipleFriendsAge() {
+    try {
+        const emailList = [
+            "john@example.com",
+            "FjT0e@example.com",
+            "alice.johnson@example.com"
+        ]; 
+
+        const result = await Friend.updateMany(
+            { email: { $in: emailList } },  
+            { $set: { age: 40 } }  
+        );
+
+        console.log(`${result.modifiedCount} friends' ages updated successfully!`.cyan);
+    } catch (err) {
+        console.log("Error updating friends' ages:", err);
+    }
+}
+
+async function findNorConditionFriends() {
+    try {
+        const friends = await Friend.find({
+            $nor: [
+                { name: "Nehal" },
+                { age: { $gt: 50 } }
+            ]
+        });
+
+        console.log("Friends matching NOR condition:", friends);
+    } catch (err) {
+        console.log("Error finding friends:", err);
+    }
+}
+
+async function updateFriendAndReturnNew() {
+    try {
+        const updatedFriend = await Friend.findOneAndUpdate(
+            { email: "john@example.com" }, // Find by email
+            { $set: { name: "John Updated" } }, // Update name
+            { new: true } // Return the updated document
+        );
+
+        if (updatedFriend) {
+            console.log("Updated Friend:", updatedFriend);
+        } else {
+            console.log("No friend found with the given email.");
+        }
+    } catch (err) {
+        console.log("Error updating friend:", err);
+    }
+}
 
 async function main() {
     // await recordFriendDocument(); 
     await updateFriendsEmail();
-    await updateFriendName();    
+    await updateMultipleFriendsAge();
+    await updateFriendName();
+    await findNorConditionFriends();
+    await updateFriendAndReturnNew();
     await mongoose.connection.close();
     console.log(" Database connection closed".white);
 
