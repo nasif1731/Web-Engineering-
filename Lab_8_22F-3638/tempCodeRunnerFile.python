@@ -1,0 +1,43 @@
+def count_sort(input_array):
+    n = len(input_array)
+    k = max(input_array)  # Find the maximum value in the input array
+
+    # Step 1: Initialize the count array C (size k+1 for 1-based index)
+    count_array = [0] * (k + 1)
+    print(f"Initialized count_array: {count_array}")
+
+    # Step 2: Count occurrences of each element in input_array
+    for j in range(1, n + 1):  # Start from 1 to n
+        count_array[input_array[j - 1]] += 1  # Adjust for 1-based index
+        print(f"Counting element {input_array[j - 1]} at Index j={j}: {count_array}")
+
+    # Step 3: Update count_array to store cumulative counts
+    for i in range(2, k + 1):
+        count_array[i] += count_array[i - 1]
+        print(f"Updating cumulative count at index i={i}: {count_array}")
+
+    # Step 4: Create output array B (size n for 1-based index)
+    output_array = [0] * n
+    print(f"Initialized output_array: {output_array}")
+
+    # Step 5: Build the output array B
+    for j in range(n, 0, -1):  # Start from n to 1
+        index = count_array[input_array[j - 1]] - 1  # Correct index in output_array
+        output_array[index] = input_array[j - 1]
+        count_array[input_array[j - 1]] -= 1
+        print(f"Placing {input_array[j - 1]} from Index j={j} to output_array at Index index={index + 1}: {output_array}")
+        print(f"Updated count_array after placing {input_array[j - 1]}: {count_array}")
+
+    return output_array
+
+# Driver code
+if __name__ == "__main__":
+    # Input array
+    input_array = [4, 2, 2, 8, 3, 3, 1]
+    print(f"Input array: {input_array}")
+
+    # Output array
+    output_array = count_sort(input_array)
+    
+    print("Sorted array:", output_array)
+

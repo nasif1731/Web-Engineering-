@@ -2,31 +2,19 @@ const mongoose = require('mongoose');
 const validator = require('validator');
 
 const friendProfileSchema = new mongoose.Schema({
-    name: {
-        type: String,
-        required: true,
-        minlength: 3, // Use `minlength` instead of `min`
-        maxlength: 20 // Use `maxlength` instead of `max`
-    },
-    email: {
-        type: String,
-        unique: true,
-        required: true,
-        validate: {
-            validator: validator.isEmail,
-            message: 'Invalid email address'
-        }
+    name: { type: String, required: true, minlength: 3, maxlength: 20 },
+    email: { 
+        type: String, 
+        required: true, 
+        unique: false  
     },
     contact: {
         type: String,
         required: true,
-        validate: {
-            validator: (value) => validator.isMobilePhone(value, 'any'), // Accepts all locales
-            message: 'Invalid contact number'
-        }
-    }
+    },
+    age: { type: Number, required: true }
 });
 
-const Friend = mongoose.model('Friend', friendProfileSchema);
 
+const Friend = mongoose.model('Friend', friendProfileSchema);
 module.exports = Friend;

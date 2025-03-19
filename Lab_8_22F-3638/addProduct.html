@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <style>
+        body {
+            background-color: #ede9fe; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            font-family: "Poppins", sans-serif;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(120, 86, 255, 0.2);
+            border-radius: 10px;
+            width: 100%;
+            max-width: 400px;
+            text-align: center;
+            border-top: 4px solid #7c3aed;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #6d28d9;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            border: 1px solid #d8b4fe;
+            border-radius: 5px;
+            font-size: 16px;
+            transition: 0.3s ease-in-out;
+            background: #faf5ff;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #9333ea;
+            box-shadow: 0 0 5px rgba(147, 51, 234, 0.5);
+            background: #f3e8ff;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: #7c3aed;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: 500;
+        }
+
+        button:hover {
+            background: #6d28d9;
+        }
+
+        #productMessage {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .success {
+            color: #10b981;
+        }
+
+        .error {
+            color: #ef4444;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h2>Add Product</h2>
+
+        <form id="addProductForm">
+            <input type="text" id="product_name" placeholder="Product Name" required>
+            <input type="text" id="category" placeholder="Category" required>
+            <input type="number" id="price" placeholder="Price" required>
+            <button type="submit">Add Product</button>
+        </form>
+
+        <p id="productMessage"></p>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+            $("#addProductForm").submit(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    url: "http://localhost:3000/api/products",
+                    type: "POST",
+                    contentType: "application/json",
+                    data: JSON.stringify({
+                        product_name: $("#product_name").val(),
+                        category: $("#category").val(),
+                        price: $("#price").val()
+                    }),
+                    success: function (response) {
+                        $("#productMessage").text(response.message).removeClass("error").addClass("success");
+                        $("#addProductForm")[0].reset();
+                    },
+                    error: function (xhr) {
+                        $("#productMessage").text("Error: " + xhr.responseText).removeClass("success").addClass("error");
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

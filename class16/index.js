@@ -1,33 +1,87 @@
 const mongoose = require('mongoose');
+const colors = require('colors'); // Import colors module
 
-const Friend = require('./models/friend'); // Ensure proper case for model imports
+const Friend = require('./models/friend');
 const ContactLog = require('./models/contactLog');
 
 mongoose
-    .connect('mongodb://localhost:27017/myfriends', {
-        useNewUrlParser: true,
-        useUnifiedTopology: true
-    })
-    .then(() => console.log('Connected to database'))
-    .catch((err) => console.log('Database connection error:', err));
+    .connect('mongodb://localhost:27017/myfriends', {})
+    .then(() => console.log(' Connected to database'.green))
+    .catch((err) => console.log(' Database connection error:'.red, err));
 
-async function recordFriendDocument() {
+// async function recordFriendDocument() {
+//     try {
+//         const frnd = new Friend({
+//             name: 'Nehal',
+//             email: 'FjT0e@example.com',
+//             contact: '1234-5678901',
+//             age: 50 
+//         });
+
+//         await frnd.save();
+//         console.log(' Friend document saved'.blue);
+//     } catch (err) {
+//         console.log(' Error saving document:'.red, err);
+//     }
+// }
+
+async function updateFriendsEmail() {
     try {
-        const frnd = new Friend({
-            name: 'John',
-            email: 'john@example.com',
-            contact: '1234-5678901'
-        });
-
-        await frnd.save();
-        console.log('Friend document saved');
-
-        // Close the connection after saving
-        mongoose.connection.close();
+        const friends = await Friend.find({ age: { $gt: 45 } }); // Find all matching users
+        for (let i = 0; i < friends.length; i++) {
+            friends[i].email = `updatedEmail${i}@gmail.com`; // Unique emails
+            await friends[i].save();
+        }
+        console.log(`${friends.length} friends updated`.yellow);
     } catch (err) {
-        console.log('Error saving document:', err);
+        console.log("Error updating friends:", err);
     }
 }
 
-// Call the function
-recordFriendDocument();
+async function addAgeField() {
+    try {
+        const result = await Friend.updateMany(
+            { age: { $exists: false } },  // Find all documents missing `age`
+            { $set: { age: 30 } } // Set default age (adjust as needed)
+        );
+        console.log(`${result.modifiedCount} documents updated with default age.`);
+    } catch (err) {
+        console.log("Error updating existing friends:", err);
+    }
+}
+
+
+async function updateFriendName() {
+    try {
+        const result = await Friend.updateOne(
+            { 
+                $and: [
+                    { email: "john.doe@example.com" },
+                    { contact: "1234-5678901" },
+                    { age: { $eq: 35 } }
+                ]
+            },
+            { $set: { name: "Updated Name" } }
+        );
+
+        if (result.modifiedCount > 0) {
+            console.log("Friend's name updated successfully!".green);
+        } else {
+            console.log("No matching friend found or no changes made.".yellow);
+        }
+    } catch (err) {
+        console.log("Error updating friend's name:", err);
+    }
+}
+
+
+async function main() {
+    // await recordFriendDocument(); 
+    await updateFriendsEmail();
+    await updateFriendName();    
+    await mongoose.connection.close();
+    console.log(" Database connection closed".white);
+
+}
+
+main();
