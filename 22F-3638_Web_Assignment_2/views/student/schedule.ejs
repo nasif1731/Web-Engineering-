@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Your Schedule</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <img src="/images/logo.png" alt="University Logo" width="100">
+    <h1>Your Schedule</h1>
+  </header>
+  <main>
+    <section>
+      <div id="calendar"></div>
+      <script id="courses-data" type="application/json"><%= JSON.stringify(courses) %></script>
+      <h3>Selected Courses</h3>
+      <ul>
+        <% courses.forEach(course => { %>
+          <li>
+            <%= course.courseCode %>: <%= course.courseName %>
+            <button onclick="removeFromSchedule('<%= course.courseCode %>')">Remove</button>
+          </li>
+        <% }) %>
+      </ul>
+      <button onclick="confirmRegistration()">Confirm Registration</button>
+      <a href="/student/dashboard">Back to Dashboard</a>
+    </section>
+  </main>
+  <script src="/js/student/schedule.js"></script>
+</body>
+</html>

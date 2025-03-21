@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Student Dashboard</title>
+    <link rel="stylesheet" href="/css/style.css" />
+  </head>
+  <body>
+    <header>
+      <img src="/images/logo.png" alt="University Logo" width="100" />
+      <h1>Welcome, <%= student.name %></h1>
+    </header>
+    <section>
+      <h2>Your Registered Courses</h2>
+      <ul>
+        <% registeredCourses.forEach(course => { %>
+          <li>
+            <%= course.courseCode %>: <%= course.courseName %>
+            <form action="/student/drop-course" method="POST" style="display:inline;">
+              <input type="hidden" name="courseCode" value="<%= course.courseCode %>">
+              <button type="submit" class="drop-btn">Drop</button>
+            </form>
+          </li>
+        <% }) %>
+      </ul>
+      <div>
+        <a href="/student/courses">Search Courses</a>
+        <a href="/student/schedule">View Schedule</a>
+        <a href="/">Logout</a>
+      </div>
+    </section>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="/js/student/dashboard.js"></script>
+  </body>
+</html>

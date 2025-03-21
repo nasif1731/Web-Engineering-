@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Reports</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <img src="/images/logo.png" alt="University Logo" width="100">
+    <h1>Reports</h1>
+  </header>
+  <section>
+    <h2>Students per Course</h2>
+    <ul>
+      <% courseRegistrations.forEach(reg => { %>
+        <li><%= reg._id %>: <%= reg.students.join(', ') %></li>
+      <% }) %>
+    </ul>
+    <h2>Courses with Available Seats</h2>
+    <ul>
+      <% coursesWithSeats.filter(c => c.seatsAvailable > 0).forEach(course => { %>
+        <li><%= course.courseCode %>: <%= course.seatsAvailable %> seats</li>
+      <% }) %>
+    </ul>
+    <h2>Students Missing Prerequisites</h2>
+    <ul>
+      <% missingPrereqs.forEach(student => { %>
+        <li><%= student.rollNumber %>: <%= student.courses.map(c => c.courseCode).join(', ') %></li>
+      <% }) %>
+    </ul>
+    <a href="/admin/dashboard">Back to Dashboard</a>
+  </section>
+</body>
+</html>

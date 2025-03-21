@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Management</title>
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+  <header>
+    <img src="/images/logo.png" alt="University Logo" width="100">
+    <h1>Student Management</h1>
+  </header>
+  <section>
+    <% students.forEach(student => { %>
+      <div>
+        <h2><a href="/admin/students/<%= student.rollNumber %>"><%= student.rollNumber %>: <%= student.name %></a></h2>
+        <% if (registrations) { %>
+          <h3>Registrations</h3>
+          <ul>
+            <% registrations.forEach(reg => { %>
+              <li><%= reg.courseCode %></li>
+            <% }) %>
+          </ul>
+          <form action="/admin/students/override" method="POST">
+            <input type="hidden" name="rollNumber" value="<%= student.rollNumber %>">
+            <label for="courseCode">Add Course:</label>
+            <select name="courseCode">
+              <% courses.forEach(course => { %>
+                <option value="<%= course.courseCode %>"><%= course.courseCode %></option>
+              <% }) %>
+            </select>
+            <button type="submit">Override Registration</button>
+          </form>
+        <% } %>
+      </div>
+    <% }) %>
+    <a href="/admin/dashboard">Back to Dashboard</a>
+  </section>
+</body>
+</html>

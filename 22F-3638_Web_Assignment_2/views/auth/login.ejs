@@ -1,0 +1,17 @@
+<form id="login-form">
+    <h2>Login</h2>
+
+    <label>
+        <input type="radio" name="role" value="admin" checked> Admin
+    </label>
+    <label>
+        <input type="radio" name="role" value="student"> Student
+    </label>
+
+    <input type="text" id="identifier" placeholder="Username (Admin) / Roll Number (Student)" required>
+    <input type="password" id="password" placeholder="Password (Admins only)">
+    
+    <button type="submit">Login</button>
+</form>
+
+<script src="/js/auth.js"></script>
