@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Event Registration</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="container mt-5">
+    <h2 class="text-center">Register an Event</h2>
+    
+    <form id="eventForm">
+      <div class="mb-3">
+        <label for="eventName" class="form-label">Event Name</label>
+        <input type="text" class="form-control" id="eventName" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="organizerName" class="form-label">Organizer Name</label>
+        <input type="text" class="form-control" id="organizerName" required>
+      </div>
+
+      <div class="mb-3">
+        <label for="eventDate" class="form-label">Event Date</label>
+        <input type="date" class="form-control" id="eventDate" required>
+      </div>
+
+      <div class="mb-3">
+        <label class="form-label">Select Event Location</label>
+        <div id="map"></div>
+        <input type="hidden" id="latitude">
+        <input type="hidden" id="longitude">
+      </div>
+
+      <button type="submit" class="btn btn-primary">Register Event</button>
+    </form>
+
+    <div id="alertContainer" class="mt-3"></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAX7jsb3IbLuRqj3tSNRZ2-A0n1tPsDCvo&callback=initMap" async defer></script>
+  <script src="script.js"></script>
+</body>
+</html>

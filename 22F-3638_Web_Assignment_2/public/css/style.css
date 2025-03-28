@@ -1,3 +1,4 @@
+/* General Page Styling */
 body {
   font-family: 'Arial', sans-serif;
   margin: 0;
@@ -6,13 +7,16 @@ body {
   color: #333;
   display: flex;
   flex-direction: column;
+  align-items: center; /* Centers content horizontally */
   min-height: 100vh;
 }
 
+/* Header Styling */
 header {
   text-align: center;
   margin-bottom: 20px;
   flex: 0 0 auto;
+  width: 100%;
 }
 
 header h1 {
@@ -20,34 +24,28 @@ header h1 {
   font-size: 2em;
 }
 
+/* Layout Fix for Main Sections */
 main {
   display: flex;
-  justify-content: space-around;
-  align-items: flex-start;
-  flex-wrap: wrap;
+  flex-direction: column;  /* Stacks sections vertically */
+  align-items: center;  /* Centers content */
+  width: 100%;
+  max-width: 1200px; /* Prevent extreme stretching */
   gap: 20px;
-  flex: 1;
 }
 
+/* 🔥 Expanding White Section (Schedule & Others) */
 section {
   background-color: #fff;
-  padding: 20px;
+  padding: 30px;  /* Increased padding */
   border-radius: 8px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  flex: 1 1 300px;
-  max-width: 400px;
-  margin: 10px;
+  width: 90%;  /* Expands to 90% of the screen */
+  max-width: 1100px; /* Prevents too much stretching */
+  margin: 10px auto; /* Centers the section */
 }
 
-.login-section {
-  flex: 1 1 300px;
-  max-width: 350px;
-}
-
-h1, h2, h3 {
-  color: #007bff;
-}
-
+/* Forms and Inputs */
 form {
   display: flex;
   flex-direction: column;
@@ -78,6 +76,7 @@ button:hover {
   background-color: #0056b3;
 }
 
+/* Button Variants */
 .drop-btn {
   background-color: #dc3545;
 }
@@ -94,6 +93,7 @@ button:hover {
   background-color: #218838;
 }
 
+/* Links */
 a {
   color: #007bff;
   text-decoration: none;
@@ -104,29 +104,38 @@ a:hover {
   text-decoration: underline;
 }
 
+/* Course List and Schedule */
 #course-list, #calendar {
   margin-top: 20px;
 }
 
+/* Course Display */
 .course {
   border: 1px solid #ddd;
   padding: 15px;
   margin-bottom: 15px;
   border-radius: 5px;
   background-color: #fafafa;
-  flex: 1 1 300px;
 }
 
+/* Course Container */
 .course-container {
   display: flex;
   flex-wrap: wrap;
   gap: 20px;
 }
 
+/* Conflict Highlight */
 .conflict {
   background-color: #ffcccc;
 }
 
+/* 📅 Schedule Table */
+#calendar {
+  width: 100%;
+}
+
+/* Table Styling */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -135,8 +144,9 @@ table {
 
 th, td {
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 12px;
   text-align: center;
+  min-width: 120px; /* Prevents squeezing */
 }
 
 th {
@@ -144,6 +154,7 @@ th {
   color: white;
 }
 
+/* List Styling */
 ul {
   list-style: none;
   padding: 0;
@@ -157,17 +168,18 @@ li {
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
-  flex: 1 1 200px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
+/* Error Messages */
 .error {
   color: #dc3545;
   text-align: center;
 }
 
+/* Schedule Form */
 .schedule-form {
   display: flex;
   flex-wrap: wrap;

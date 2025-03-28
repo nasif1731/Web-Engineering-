@@ -100,30 +100,62 @@ const addToSchedule = async (req, res) => {
   }
 };
 
-const removeFromSchedule = (req, res) => {
-  const { courseCode } = req.body;
-  req.session.potentialCourses = req.session.potentialCourses.filter(c => c !== courseCode);
-  res.json({ success: true });
+const removeFromSchedule = async (req, res) => {
+  try {
+    const { courseCode } = req.body;
+
+    if (!req.session.potentialCourses) {
+      req.session.potentialCourses = [];
+    }
+
+    const index = req.session.potentialCourses.indexOf(courseCode);
+    if (index !== -1) {
+      req.session.potentialCourses.splice(index, 1);
+      await req.session.save(); // 🔹 Ensure session updates persist
+      console.log(`✅ Removed ${courseCode} from session.`);
+    }
+
+    // 🔹 Fetch updated course list for frontend
+    const student = await Student.findOne({ rollNumber: req.session.user.rollNumber });
+    const registrations = await Registration.find({ studentRollNumber: student.rollNumber });
+    const registeredCourses = await Course.find({ courseCode: { $in: registrations.map(r => r.courseCode) } });
+    const sessionCourses = await Course.find({ courseCode: { $in: req.session.potentialCourses } });
+
+    const updatedCourses = [...new Set([...registeredCourses, ...sessionCourses])];
+
+    res.json({ success: true, updatedCourses });
+  } catch (error) {
+    console.error('❌ Error removing from schedule:', error);
+    res.status(500).json({ error: 'Failed to remove course' });
+  }
 };
+
+
+
 
 const getSchedule = async (req, res) => {
   try {
-    const potentialCourses = req.session.potentialCourses || [];
-    console.log('Session courses:', potentialCourses); // Debug 4
-    const courses = await Course.find({
-      courseCode: { $in: potentialCourses }
-    }).lean();
+    
+    const student = await Student.findOne({ rollNumber: req.session.user.rollNumber });
+    if (!student) {
+      return res.status(404).render('error', { message: 'Student not found' });
+    }
 
-    console.log('Found courses:', courses.map(c => c.courseCode)); // Debug 5
-    // Convert schedule times to HH:MM format
-    const formattedCourses = courses.map(course => ({
-      ...course,
-      schedule: course.schedule.map(slot => ({
-        ...slot,
-        startTime: formatTime(slot.startTime),
-        endTime: formatTime(slot.endTime)
-      }))
-    }));
+    // Get registered courses from database
+    const registrations = await Registration.find({ studentRollNumber: student.rollNumber });
+    const registeredCourses = await Course.find({ courseCode: { $in: registrations.map(r => r.courseCode) } });
+
+    // Get session courses (potential schedule)
+    const potentialCourses = req.session.potentialCourses || [];
+    const sessionCourses = await Course.find({ courseCode: { $in: potentialCourses } });
+
+    // Combine both registered and session courses
+    const courses = [...new Set([
+      ...registeredCourses.map(course => course.toObject()),
+      ...sessionCourses.map(course => course.toObject())
+    ])];    
+
+    console.log("📌 Sent Courses to Frontend:", JSON.stringify(courses, null, 2));
 
     res.render('student/schedule', {
       courses: courses.map(course => ({
@@ -136,12 +168,11 @@ const getSchedule = async (req, res) => {
       }))
     });
   } catch (error) {
-    console.error('Schedule error:', error);
-    res.status(500).render('error', {
-      message: 'Failed to load schedule'
-    });
+    console.error('❌ Error loading schedule:', error);
+    res.status(500).render('error', { message: 'Failed to load schedule' });
   }
 };
+
 
 // Add helper function
 function formatTime(timeStr) {

@@ -13,11 +13,13 @@
   <main>
     <section>
       <div id="calendar"></div>
-      <script id="courses-data" type="application/json"><%= JSON.stringify(courses) %></script>
+      <script id="courses-data" type="application/json">
+        <%- JSON.stringify(courses) %>
+      </script>
       <h3>Selected Courses</h3>
-      <ul>
+      <ul id="selectedCourses">
         <% courses.forEach(course => { %>
-          <li>
+          <li data-course="<%= course.courseCode %>">
             <%= course.courseCode %>: <%= course.courseName %>
             <button onclick="removeFromSchedule('<%= course.courseCode %>')">Remove</button>
           </li>

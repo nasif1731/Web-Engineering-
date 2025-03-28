@@ -27,7 +27,7 @@ function fetchRegisteredCourses() {
     })
     .catch(error => {
       console.error('Error fetching registered courses:', error);
-      alert('Unable to load registered courses. Please try again later.');
+      
     });
 }
 
