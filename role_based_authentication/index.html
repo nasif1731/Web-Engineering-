@@ -1,0 +1,122 @@
+
+ <!DOCTYPE html>
+ <html lang="en">
+ <head>
+   <meta charset="UTF-8" />
+   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+   <title>Role-Based Authentication</title>
+ 
+   <script src="https://cdn.tailwindcss.com"></script>
+   <script>
+     tailwind.config = {
+       theme: {
+         extend: {
+           colors: {
+             primary: '#2ecc71', // custom green (similar to Minty)
+           }
+         }
+       }
+     }
+   </script>
+ </head>
+ <body class="bg-gray-100 flex items-center justify-center min-h-screen">
+ 
+   <div class="bg-white shadow-xl rounded-2xl w-full max-w-md p-8">
+     <h2 class="text-2xl font-bold text-center text-primary mb-6">Login</h2>
+ 
+     <!-- Login Form -->
+     <div id="loginForm">
+       <form id="loginFormElement" class="space-y-4">
+         <div>
+           <label for="username" class="block text-sm font-medium text-gray-700">Username</label>
+           <input id="username" type="text" required class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" />
+         </div>
+         <div>
+           <label for="password" class="block text-sm font-medium text-gray-700">Password</label>
+           <input id="password" type="password" required class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary" />
+         </div>
+         <div>
+           <label for="role" class="block text-sm font-medium text-gray-700">Role</label>
+           <select id="role" required class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary">
+             <option value="admin">Admin</option>
+             <option value="user">User</option>
+             <option value="editor">Editor</option>
+           </select>
+         </div>
+         <button type="button" onclick="login()" class="w-full bg-primary text-white py-2 rounded-md hover:bg-green-600">Login</button>
+       </form>
+ 
+       <div id="message" class="mt-4 text-center text-sm font-medium hidden"></div>
+     </div>
+ 
+     <!-- Protected Content -->
+     <div id="protectedContent" class="hidden mt-6 text-center">
+       <h3 class="text-xl font-semibold text-primary">Welcome, <span id="userName"></span>!</h3>
+       <p class="text-gray-600">Your role: <span id="userRole" class="font-semibold text-green-500"></span></p>
+       <button onclick="logout()" class="mt-4 px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600">Logout</button>
+     </div>
+   </div>
+ 
+   <script>
+     let token = localStorage.getItem('token');
+ 
+     if (token) {
+       showProtectedContent();
+     }
+ 
+     async function login() {
+       const username = document.getElementById('username').value;
+       const password = document.getElementById('password').value;
+       const role = document.getElementById('role').value;
+       const messageDiv = document.getElementById('message');
+ 
+       try {
+         const response = await fetch('http://localhost:3000/login', {
+           method: 'POST',
+           headers: { 'Content-Type': 'application/json' },
+           body: JSON.stringify({ username, password, role })
+         });
+ 
+         if (!response.ok) {
+           const errorData = await response.json();
+           throw new Error(errorData.message || 'Login failed');
+         }
+ 
+         const data = await response.json();
+         token = data.accessToken;
+         localStorage.setItem('token', token);
+         showProtectedContent();
+         showMessage('Login successful!', 'text-green-600');
+       } catch (error) {
+         showMessage(error.message, 'text-red-600');
+       }
+     }
+ 
+     function showMessage(message, textClass) {
+       const messageDiv = document.getElementById('message');
+       messageDiv.className = `mt-4 text-center text-sm font-medium ${textClass}`;
+       messageDiv.textContent = message;
+       messageDiv.style.display = 'block';
+     }
+ 
+     function showProtectedContent() {
+       document.getElementById('loginForm').style.display = 'none';
+       document.getElementById('protectedContent').style.display = 'block';
+       const payload = JSON.parse(atob(token.split('.')[1]));
+       document.getElementById('userName').textContent = payload.username;
+       document.getElementById('userRole').textContent = payload.role;
+     }
+ 
+     function logout() {
+       localStorage.removeItem('token');
+       token = null;
+       document.getElementById('loginForm').style.display = 'block';
+       document.getElementById('protectedContent').style.display = 'none';
+       document.getElementById('username').value = '';
+       document.getElementById('password').value = '';
+       document.getElementById('message').style.display = 'none';
+     }
+   </script>
+ </body>
+ </html>
+ 
