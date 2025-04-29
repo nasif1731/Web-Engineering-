@@ -13,8 +13,30 @@ services:
     build: ./js_service
     ports:
       - "3001:3001"
+    depends_on:
+      - user-mongo
 
   order-service:
     build: ./python_service
     ports:
       - "3002:3002"
+    depends_on:
+      - ml-mongo
+
+  user-mongo:
+    image: mongo
+    volumes:
+      - user-data:/data/db
+    ports:
+      - "27017:27017"
+
+  ml-mongo:
+    image: mongo
+    volumes:
+      - ml-data:/data/db
+    ports:
+      - "27018:27017"
+
+volumes:
+  user-data:
+  ml-data:
