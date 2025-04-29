@@ -3,7 +3,7 @@ const {createProxyMiddleware}=require('http-proxy-middleware');
 
 const app=express();
 
-app.use('/users',createProxyMiddleware({target:'http://users-service:3001',
+app.use('/js',createProxyMiddleware({target:'http://js_service:3001',
     changeOrigin:true,
     secure:false
 
