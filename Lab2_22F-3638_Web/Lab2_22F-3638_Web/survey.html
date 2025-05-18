@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survey Form</title>
+</head>
+
+<body>
+    <main>
+        <section id="student-form">
+            <h1>
+                Survey Form
+            </h1>
+            <form>
+                <label for="s_choice">"How satisfied are you with our services?"</label><br>
+                <select name="s_choices" id="s_choices">
+                    <option value="v_satisfy">Very Satisfied</option>
+                    <option value="satisfy">Satisfied</option>
+                    <option value="neutral">Neutral</option>
+                    <option value="dissatisfy">Dissatisfied</option>
+                    <option value="v_dissatisfy">Very Dissatisfied</option>
+                </select><br>
+                <br>
+                <label for="s_choice">"What are your preferred contact methods?"</label><br>
+                <input type="checkbox" id="email" name="email" value="email" required>
+                <label for="email"> Email</label><br>
+                <input type="checkbox" id="phone" name="phone" value="phone" required>
+                <label for="phone"> Phone</label><br>
+                <input type="checkbox" id="sms" name="sms" value="sms" required>
+                <label for="sms"> SMS</label><br>
+                <br>
+                <label for="r_choice">"Would you recommend us to others?"</label><br>
+                <input type="radio" id="yes" name="choice" value="yes" required>
+                <label for="yes">Yes</label><br>
+                <input type="radio" id="no" name="choice" value="no" required>
+                <label for="no">No</label><br>
+
+
+
+                <input type="submit" value="Submit">
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>

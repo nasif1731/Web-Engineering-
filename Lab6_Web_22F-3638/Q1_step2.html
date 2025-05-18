@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registration - Step 2</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        #userInfo p {
+            margin-top: 5px;
+        }
+        #confirmation p {
+            margin-top: 5px;
+        }
+        #userInfo {
+            margin-bottom: 10px;
+        }
+        #step2Form {
+            margin-top: 10px;
+        }
+        #confirmation {
+            margin-top: 10px;
+        }
+        #confirmation h3 {
+            font-weight: bold;
+        }
+        #confirmation p {
+            margin-top: 5px;
+        }
+        #confirmation button {
+            margin-top: 10px;
+            padding-top: 40px;
+        }
+        #step2Form button {
+            background: rgb(13, 165, 74);
+            color: white;
+        }
+        #step2Form button:hover {
+            background: rgb(37, 99, 44);
+        }
+    </style>
+</head>
+<body>
+    <h2>Registration Form - Step 2</h2>
+    <div id="userInfo"></div>
+    
+    <form id="step2Form">
+        <div>
+            <label for="phone">Phone Number:</label>
+            <input type="tel" id="phone" required>
+        </div>
+        <button type="submit">Submit</button>
+    </form>
+
+    <div id="confirmation" style="display: none;">
+        <h3>Registration Complete!</h3>
+        <p>All your information has been saved.</p>
+    </div>
+
+    <script src="Q1_step2.js">
+    </script>
+</body>
+</html>

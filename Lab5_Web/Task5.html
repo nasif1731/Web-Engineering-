@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>jQuery Background Image Changer</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+<body>
+    <h1 >jQuery Background Image Changer</h1>
+    <button id="natureButton">Nature</button>
+    <button id="cityButton">City</button>
+    <button id="oceanButton">Ocean</button>
+
+    <script>
+        $(document).ready(function() {
+            $('#natureButton').click(function() {
+                $('body').css({
+                    'background-image': 'url(nature.jpg)',
+                    'background-size': 'cover',
+                    'width': '100%',
+                    'height':'100vh',
+                    'background-repeat': 'no-repeat',
+                    'background-position': 'center',
+                    'transition': 'background-image 1s ease'
+                });
+            });
+
+            $('#cityButton').click(function() {
+                $('body').css({
+                    'background-image': 'url(city.jpeg)',
+                    'background-size': 'cover',
+                    'background-repeat': 'no-repeat',
+                    'width': '100%',
+                    'height':'100vh',
+                    'background-position': 'center',
+                    'transition': 'background-image 1s ease'
+                });
+            });
+
+            $('#oceanButton').click(function() {
+                $('body').css({
+                    'background-image': 'url(ocean.jpg)',
+                    'background-size': 'cover',
+                    'background-repeat': 'no-repeat',
+                    'width': '100%',
+                    'height':'100vh',
+                    'background-position': 'center',
+                    'transition': 'background-image 1s ease'
+                });
+            });
+        });
+    </script>
+</body>
+</html>

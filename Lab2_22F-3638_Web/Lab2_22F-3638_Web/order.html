@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Order Form</title>
+</head>
+
+<body>
+    <main>
+        <section id="Order-form">
+            <h1>Online Order Form</h1>
+            <form id="order_form">
+                <label for="name">First name:</label><br>
+                <input type="text" id="name" name="name" required><br>
+                <label for="address"> Delivery Address:</label><br>
+                <textarea name="address" id="address" rows="4" cols="50" required></textarea><br>
+                <label for="p_choice"> Select Product</label><br>
+                <select name="p_choices" id="p_choices">
+                    <option value="laptop">Laptop</option>
+                    <option value="mobile">Mobile</option>
+                    <option value="neutral">Tablet</option>
+                    
+                </select><br><br>
+                <input type="submit" value="Submit">
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>

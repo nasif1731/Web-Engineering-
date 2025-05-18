@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Products</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2em;
+        }
+        div {
+            margin: 10px;
+        }
+        button {
+            margin-top: 10px;
+            padding: 5px;
+            background-color: blue;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            margin-bottom: 10px;
+            display: block;
+            text-align: center;
+            transition: background-color 0.3s ease-in-out;
+        }
+        button:hover {
+            background-color: darkblue;
+        }
+        #cart {
+            margin-top: 10px;
+            text-align: center;
+            font-size: 1.5em;
+            font-weight: bold;
+            color: white;
+            background-color: lightblue ;
+            padding: 10px;
+            border-radius: 5px;
+            text-decoration: none;
+            
+        }
+        #cart:hover {
+            background-color: darkblue;
+            transformation: background-color 0.3s ease-in-out;
+            color: white;
+            text-decoration: none;
+            
+        }
+       
+    </style>
+</head>
+<body>
+    <h1>Products</h1>
+    <div>
+        <h3>Product 1</h3>
+        <button onclick="addToCart('Product 1')">Add to Cart</button>
+    </div>
+    <div>
+        <h3>Product 2</h3>
+        <button onclick="addToCart('Product 2')">Add to Cart</button>
+    </div>
+    <div>
+        <h3>Product 3</h3>
+        <button onclick="addToCart('Product 3')">Add to Cart</button>
+    </div>
+    <br>
+    <a  id="cart" href="Q2_cart.html">View Cart</a>
+    <script src="Q2_product.js"></script>
+</body>
+</html>
+

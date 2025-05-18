@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Job Application Form</title>
+</head>
+<body>
+    <main>
+        <section id=" Job Applicaion form">
+            <h1>Job Application Form</h1>
+            <form>
+                <label for="name">Applicant name:</label><br>
+                <input type="text" id="name" name="name" required><br>
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" required><br>
+                
+                <label for="j_choice"> Position Applied For</label><br><br>
+                <select name="j_choices" id="j_choices">
+                    <option value="Se">Software Engineer</option>
+                    <option value="ds">Data Scientist</option>
+                    <option value="ba">Business Analyst</option>
+                </select><br><br>
+                <label for="terms"> Upload Resume</label>
+                <input type="file" id="file" name="file" value="file" required><br><br>
+                <label for="skills"> Skills</label><br>
+                <textarea name="skills" id="skills" rows="4" cols="50" required></textarea><br>
+
+
+                <input type="checkbox" id="terms" name="terms" value="terms" required>
+                <label for="terms"> "I certify that all information provided is true."</label><br><br>
+                <input type="submit" value="Submit">
+            </form>
+        </section>
+    </main>
+</body>
+</html>

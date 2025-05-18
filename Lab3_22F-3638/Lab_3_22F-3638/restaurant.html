@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Restaurant Billing System</title>
+    <meta name="description" content="" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="./restaurant.css" />
+  </head>
+  <body>
+    <div class="head_container">
+      <h1>Calculate your bill</h1>
+    </div>
+    <div class="form_container">
+      <form id="orderForm">
+        <label for="totalBill">Total Bill:</label>
+        <input type="number" id="totalBill" name="totalBill" required />
+        
+        <label for="tipPercentage">Tip Percentage:</label>
+        <input type="number" id="tipPercentage" name="tipPercentage" required />
+        
+        <label for="numPeople">Number of People:</label>
+        <div class="people-container">
+          <button id="sub_people" name="sub_people" class="people-button">-</button>
+          <input type="text" id="numPeople" name="numPeople" value="1" required />
+          <button id="add_people" name="add_people" class="people-button">+</button>
+        </div>
+        
+        <button type="submit" id="calculate">Calculate</button>
+      </form>
+    </div>
+    <div id="result" class="summary_container">
+      <h2>Summary</h2>
+      <table id="summaryTable">
+        <tr>
+          <th>Description</th>
+          <th>Amount</th>
+        </tr>
+        <tr>
+          <td>Total Bill</td>
+          <td id="totalBillDisplay">$0</td>
+        </tr>
+        <tr>
+          <td>Tip Amount</td>
+          <td id="tipAmountDisplay">$0</td>
+        </tr>
+        <tr>
+          <td>Tax 5%</td>
+          <td id="taxRateDisplay">$0</td>
+        </tr>
+        <tr>
+          <td>Total Amount</td>
+          <td id="totalAmountDisplay">$0</td>
+        </tr>
+        <tr>
+          <td>Amount per Person</td>
+          <td id="amountPerPersonDisplay">$0</td>
+        </tr>
+      </table>
+    </div>
+
+    <script src="./restaurant.js"></script>
+  </body>
+</html>

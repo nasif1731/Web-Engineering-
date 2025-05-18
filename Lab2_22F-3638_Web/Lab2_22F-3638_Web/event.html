@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Event Registeration Form</title>
+</head>
+
+<body>
+    <main>
+        <section id="Event Registeration -form">
+            <h1>Event Registeration Form</h1>
+            <form>
+                <label for="name">Participant name:</label><br>
+                <input type="text" id="name" name="name" required><br>
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" required><br>
+                <label for="number">Contact Number :</label><br>
+                <input type="tel" id="contact" name="contact" required><br>
+                <label for="e_choice">Select Event Type</label><br>
+                <input type="radio" id="conference" name="choice" value="conference" required>
+                <label for="conference">Conference</label><br>
+                <input type="radio" id="workshop" name="choice" value="workshop" required>
+                <label for="workshop">Workshop</label><br>
+                <input type="radio" id="webinar" name="choice" value="webinar" required>
+                <label for="webinar">Webinar</label><br>
+                <label for="d_choice"> Dietary Preferences</label><br><br>
+                <select name="d_choices" id="d_choices">
+                    <option value="vegetarian">Vegetarian</option>
+                    <option value="n_vegetarian">Non-Vegetarian</option>
+                    <option value="vegan">Vegan</option>
+                </select><br><br>
+                <input type="checkbox" id="terms" name="terms" value="terms" required>
+                <label for="terms"> "I agree to the terms and conditions."</label><br><br>
+                <input type="submit" value="Submit">
+            </form>
+        </section>
+    </main>
+</body>
+
+</html>

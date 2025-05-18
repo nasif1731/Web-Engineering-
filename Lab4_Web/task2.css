@@ -1,0 +1,38 @@
+.container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    background-image: linear-gradient(rgba(171, 15, 199, 0.589), rgba(73, 173, 255, 0.847));
+    font-family: Arial, sans-serif;
+}
+.input-group {
+    margin-bottom: 15px;
+}
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+input, button {
+    padding: 5px;
+    margin: 5px;
+}
+button{
+    background-color:blueviolet;
+    color: white;
+    border: none;
+    cursor: pointer;
+    border-radius: 3px;
+}
+.result {
+    margin-top: 20px;
+    padding: 10px;
+    background-color: #f0f0f0;
+
+}
+.error {
+    color: red;
+    display: none;
+}

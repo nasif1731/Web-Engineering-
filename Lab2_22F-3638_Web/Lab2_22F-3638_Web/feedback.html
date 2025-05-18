@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FeedBack Form</title>
+</head>
+
+<body>
+    <main>
+        <section id="FeedBack-form">
+            <h1>FeedBack Form</h1>
+            <form>
+                <label for="name">First name:</label><br>
+                <input type="text" id="name" name="name" required><br>
+                <label for="email">Email:</label><br>
+                <input type="email" id="email" name="email" required><br>
+                <label for="feedback">FeedBack:</label><br>
+                <textarea name="feedback" id="feedback" rows="4" cols="50" required></textarea><br>
+                <label for="r_choice">Rating</label><br>
+                <input type="radio" id="one" name="choice" value="one" required>
+                <label for="one">★</label>
+                <input type="radio" id="two" name="choice" value="two" required>
+                <label for="two">★★</label>
+                <input type="radio" id="three" name="choice" value="three" required>
+                <label for="three">★★★</label>
+                <input type="radio" id="four" name="choice" value="four" required>
+                <label for="four">★★★★</label>
+                <input type="radio" id="five" name="choice" value="five" required>
+                <label for="five">★★★★★</label><br>
+                <input type="submit" value="Submit">
+            </form>
+
+        </section>
+</body>
+
+</html>

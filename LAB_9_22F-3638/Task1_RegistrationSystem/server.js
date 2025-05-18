@@ -8,17 +8,17 @@ app.use(express.json());
 app.use(cors());
 
 mongoose.connect('mongodb://127.0.0.1:27017/studentDB')
-  .then(() => console.log('✅ MongoDB Connected'))
-  .catch(err => console.error('❌ MongoDB Connection Error:', err));
+  .then(() => console.log(' MongoDB Connected'))
+  .catch(err => console.error(' MongoDB Connection Error:', err));
 
-// ✅ Fix: Ensure routes are prefixed correctly
+//  Fix: Ensure routes are prefixed correctly
 app.use('/api/students', studentRoutes);
 
-// ✅ Handle Undefined Routes
+//  Handle Undefined Routes
 app.use((req, res) => {
-  res.status(404).json({ error: '❌ Route Not Found' });
+  res.status(404).json({ error: ' Route Not Found' });
 });
 
-// ✅ Start the Server
+// Start the Server
 const PORT = 3000;
-app.listen(PORT, () => console.log(`🚀 Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

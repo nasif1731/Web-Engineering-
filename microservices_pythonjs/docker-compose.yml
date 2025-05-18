@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   api-gateway:
     build: ./api_gateways
@@ -9,14 +7,14 @@ services:
       - js_service
       - python_service
 
-  user-service:
+  js_service:
     build: ./js_service
     ports:
       - "3001:3001"
     depends_on:
       - user-mongo
 
-  order-service:
+  python_service:
     build: ./python_service
     ports:
       - "3002:3002"

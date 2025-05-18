@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Table and Form Design</title>
+    <link rel="stylesheet" href="registration.css">
+    
+</head>
+<body>
+    <h1>Student Information</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Age</th>
+                <th>Course</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Nehal</td>
+                <td>21</td>
+                <td>HTML</td>
+            </tr>
+            <tr>
+                <td>Maliha Munir</td>
+                <td>22</td>
+                <td>CSS</td>
+            </tr>
+            <tr>
+                <td>Emaan Fatima</td>
+                <td>21</td>
+                <td>JavaScript</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2>Registration Form</h2>
+    <form>
+        <label for="fullName">Full Name:</label>
+        <input type="text" id="fullName" name="fullName" required>
+
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+
+        <label for="course">Select Course:</label>
+        <select id="course" name="course" required>
+            <option value="HTML">HTML</option>
+            <option value="CSS">CSS</option>
+            <option value="JavaScript">JavaScript</option>
+        </select>
+
+        <button type="submit">Submit</button>
+    </form>
+    <script src="./registration.js" ></script>
+    
+</body>
+</html>

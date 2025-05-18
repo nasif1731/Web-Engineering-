@@ -1,0 +1,19 @@
+
+
+body {
+    background-color: rgb(192, 191, 207);
+  }
+  h1 {
+    color: rgb(0, 0, 0);
+  }
+  h2 {
+    color:rgb(50, 0, 143);
+  }
+  .row {
+    display: flex;
+  }
+  
+  .column {
+    flex: 33.33%;
+    padding: 5px;
+  }

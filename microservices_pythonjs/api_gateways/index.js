@@ -10,7 +10,7 @@ app.use('/js',createProxyMiddleware({target:'http://js_service:3001',
     
 }));
 
-app.use('/python',createProxyMiddleware({target:'http://python-service:3002',
+app.use('/python',createProxyMiddleware({target:'http://python_service:3002',
     changeOrigin:true,
     secure:false
 
