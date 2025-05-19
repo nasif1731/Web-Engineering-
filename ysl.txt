@@ -5,3 +5,7 @@ Chatgpt-easy code
 Github copilot chat
 CodeGpt
 Monica Code
+Augment
+Grok
+Mistral
+Qwen
